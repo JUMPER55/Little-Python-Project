@@ -1,0 +1,77 @@
+def modify(id_, new_value):
+    new_line = ""
+    with open("students.txt", "r") as file:
+        lines = file.readlines()
+        for i in lines:
+            if id_ in i:
+                line_splitted = i.split(",")
+                line_splitted[2] = new_value
+                new_line += ",".join(line_splitted)
+            else:
+                new_line += i
+    
+    with open("students.txt", "w") as file:
+        file.write(new_line)
+
+def insert(id_, name, cgpa, date, gender):
+    with open("students.txt", "a") as file:
+        new_line = f"\n{id_},{name},{cgpa},{date},{gender}"
+        file.write(new_line)
+
+def delete(id_):
+    new_line = ""
+    with open("students.txt", "r") as file:
+        lines = file.readlines()
+        for i in lines:
+            if id_ in i:
+                continue
+                print("Id Found!")
+            else:
+                new_line += i
+    
+    with open("students.txt", "w") as wfile:
+        wfile.write(new_line)
+
+def display():
+    with open("students.txt", "r") as file:
+        lines = file.readlines()
+        for i in lines:
+            print("\t".join(i.split(",")), end="")
+    
+
+def stats():
+    with open("students.txt", "r") as file:
+        male = 0
+        female = 0
+        cgpas = 0
+        total_count = 0
+        lines = file.readlines()
+        for i in lines:
+            line_splitted = i.split(",")
+            if "M" in line_splitted[4]:
+                male += 1
+            else:
+                female += 1
+                
+            cgpas += float(line_splitted[2])
+            total_count += 1
+        avg_cgpa = cgpas / total_count
+        lines_stats = f"Total Number of Male: {male}\nTotal Number of Female: {female}\nAverage CGPA: {avg_cgpa}\nTotal Count: {total_count}"
+        
+    
+    with open("stats.txt", "w") as file:
+        file.write(lines_stats)
+        
+              
+
+def main():
+    print("Before the modifications:")
+    display()
+    modify("9821", "2.12")
+    insert("2341", "Tom Jones", "3.1", "12-08-1991", "M")
+    delete("1235")
+    print()
+    print("After the modifications:")
+    display()
+
+main()

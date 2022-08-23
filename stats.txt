@@ -1,0 +1,4 @@
+Total Number of Male: 3
+Total Number of Female: 3
+Average CGPA: 2.1133333333333337
+Total Count: 6
